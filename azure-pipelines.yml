@@ -20,10 +20,11 @@ steps:
     unzip /tmp/gatling-charts-highcharts-bundle-3.0.3-bundle.zip
     rm /tmp/gatling-charts-highcharts-bundle-3.0.3-bundle.zip
     sudo mv gatling-charts-highcharts-bundle-3.0.3 /usr/local/gatling
-  displayName: 'TOOLS: install gatling'
+  displayName: 'Install gatling'
 
 - script: |
-    gatling --help
+    gatling.sh --help
+  displayName: 'Test gatling'
 
 - task: Maven@3
   inputs:
