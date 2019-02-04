@@ -9,7 +9,18 @@ trigger:
 pool:
   vmImage: 'Ubuntu-16.04'
 
+variables:
+  GATLING_HOME: "/usr/local/gatling"
+  PATH: "/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:/usr/local/gatling/bin:/opt/bin"
+
 steps:
+- script: |
+    cd /tmp
+    wget https://repo1.maven.org/maven2/io/gatling/highcharts/gatling-charts-highcharts-bundle/3.0.3/gatling-charts-highcharts-bundle-3.0.3-bundle.zip
+    unzip /tmp/gatling-charts-highcharts-bundle-3.0.3-bundle.zip
+    rm /tmp/gatling-charts-highcharts-bundle-3.0.3-bundle.zip
+    mv gatling-charts-highcharts-bundle-3.0.3 /usr/local/gatling
+
 - task: Maven@3
   inputs:
     mavenPomFile: 'example/pom.xml'
@@ -20,3 +31,5 @@ steps:
     publishJUnitResults: false
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
     goals: 'package'
+
+  displayName: 'TOOLS: install google-chrome-stable'
